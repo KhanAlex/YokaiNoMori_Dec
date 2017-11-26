@@ -6,11 +6,12 @@ import java.awt.event.MouseListener;
 import java.util.List;
 
 /**
- * Created by bcontrer on 04/10/17.
+ * Created by ayoganat on 04/10/17.
  */
 public class ControlMouse implements MouseListener {
 
     private Plateau plateau;
+    private int test;
     private Fenetre fenetre;
     //* Liste de cases
     private int bordureX;
