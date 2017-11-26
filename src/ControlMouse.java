@@ -11,7 +11,6 @@ import java.util.List;
 public class ControlMouse implements MouseListener {
 
     private Plateau plateau;
-    private int test;
     private Fenetre fenetre;
     //* Liste de cases
     private int bordureX;
