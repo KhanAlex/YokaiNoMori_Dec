@@ -61,16 +61,13 @@ public class PlateauGraphic extends JPanel {
         g2.drawImage(imgPlateau, 0,0,null);
          //   initPlateau(g2);
             for (Sprite s:listeSprite){
-                System.out.println(s);
                 g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/1.2), hauteurCase*s.getY()+(int)(bordureY/1.7), null);
             }
         System.out.println(listeSprite.size());
 
 
-
-
-
     }
+
     public void tableauToSprite(int[][] tab){
         //* Destruction des anciens Sprite
         listeSprite.clear();

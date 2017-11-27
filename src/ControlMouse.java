@@ -82,6 +82,11 @@ public class ControlMouse implements MouseListener {
                 if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
                     System.out.println("Tu as bouger ta piece la");
                     plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
+                    if(plateau.promotionBoolean(plateau.getPieceEnCours(), tabCoor[1])){
+                       /* if(fenetre.promotionMessage()){
+                            promotion
+                            */
+                    }
                     plateau.setJoueur(0);
                     plateau.setPieceEnCours(0);
                     plateau.setMovesPossibleTour(new int[5][6]);

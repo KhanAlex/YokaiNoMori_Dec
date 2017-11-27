@@ -118,11 +118,37 @@ public class Plateau {
         }
         tab[numCase[0]][numCase[1]] = tab[numPiece[0]][numPiece[1]];
         tab[numPiece[0]][numPiece[1]]=0;
+        estGagner();
         tour++;
     }
 
+
+    public void estGagner(){
+
+    }
+
+
     public void mangePiece(int nbEstMange){
         cimetiere.add(nbEstMange);
+    }
+
+    public boolean promotionBoolean(int piece, int coorY){
+        if (piece !=1 && piece !=-1 && piece !=3 && piece !=-3 )
+            return false;
+        if(joueur == 0 && coorY < 4 || joueur == 1 && coorY >1 )
+            return false;
+        return true;
+    }
+
+    public void promotion(int[] numCase){
+        if (tab[numCase[0]][numCase[1]] == 1)
+            tab[numCase[0]][numCase[1]] = 2;
+        if (tab[numCase[0]][numCase[1]] == -1)
+            tab[numCase[0]][numCase[1]] = -2;
+        if (tab[numCase[0]][numCase[1]] == 3)
+            tab[numCase[0]][numCase[1]] = 4;
+        if (tab[numCase[0]][numCase[1]] == -3)
+            tab[numCase[0]][numCase[1]] = -4;
     }
 
     //1 == pion
