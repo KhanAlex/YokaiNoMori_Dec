@@ -102,6 +102,9 @@ public class PlateauGraphic extends JPanel {
                 }
             }
     }
+    public void afficheCasePossible(int[][] tab){
+
+    }
 
 
 
