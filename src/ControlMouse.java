@@ -45,6 +45,8 @@ public class ControlMouse implements MouseListener {
            plateau.setPieceEnCours(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
            plateau.setPieceEnCoursX(tabCoor[0]);
            plateau.setPieceEnCoursY(tabCoor[1]);
+           plateauGraph.afficheCasePossible(plateau.getMovesPossibleTour());
+           plateauGraph.repaint();
            System.out.println("Tu peux joeur cette piece");
        }
 

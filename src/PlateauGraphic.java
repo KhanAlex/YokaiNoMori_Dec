@@ -10,9 +10,13 @@ public class PlateauGraphic extends JPanel {
     private Image imgPlateau;
 
     private ImageIcon imgKodamaLoaded;
+    private ImageIcon imgKodamaLoaded2;
     private ImageIcon imgKirinLoaded;
+    private ImageIcon imgKirinLoaded2;
     private ImageIcon imgOniLoaded;
+    private ImageIcon imgOniLoaded2;
     private ImageIcon imgKoropokkuruLoaded;
+    private ImageIcon imgKoropokkuruLoaded2;
 
     private String path;
     private Plateau plateau;
@@ -22,8 +26,11 @@ public class PlateauGraphic extends JPanel {
     private int largeurCase;
     private int bordureY;
     private int hauteurCase;
+    private final int LARGEUR_PIECE = 80;
+    private final int HAUTEUR_PIECE = 80;
 
     private List<Sprite> listeSprite;
+    private List<Sprite> listeCasePossible;
 
     private boolean debutPartie;
 
@@ -34,6 +41,8 @@ public class PlateauGraphic extends JPanel {
         this.fenetre = fenetre;
         debutPartie  =true;
         listeSprite = new ArrayList<Sprite>();
+        listeCasePossible = new ArrayList<Sprite>();
+
 
         bordureX = (int)((7.7*(fenetre.getxFenetre()))/100); //* 7.7
         largeurCase = (fenetre.getxFenetre()-(bordureX)) / 5;
@@ -41,10 +50,14 @@ public class PlateauGraphic extends JPanel {
         hauteurCase = (fenetre.getyFenetre()-(bordureY)) / 6;
 
 
-        imgKodamaLoaded = new ImageIcon(new ImageIcon("kodama.png").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT));
-        imgKirinLoaded = new ImageIcon(new ImageIcon("kirin.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT));
-        imgOniLoaded = new ImageIcon(new ImageIcon("oni.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT));
-        imgKoropokkuruLoaded = new ImageIcon(new ImageIcon("koropokkuru.png").getImage().getScaledInstance(65, 65, Image.SCALE_DEFAULT));
+        imgKodamaLoaded = new ImageIcon(new ImageIcon("kodama.png").getImage().getScaledInstance(LARGEUR_PIECE,HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgKodamaLoaded2 = new ImageIcon(new ImageIcon("kodama2.png").getImage().getScaledInstance(LARGEUR_PIECE,HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgKirinLoaded = new ImageIcon(new ImageIcon("kirin.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgKirinLoaded2 = new ImageIcon(new ImageIcon("kirin2.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgOniLoaded = new ImageIcon(new ImageIcon("oni.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgOniLoaded2 = new ImageIcon(new ImageIcon("oni2.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgKoropokkuruLoaded = new ImageIcon(new ImageIcon("koropokkuru.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgKoropokkuruLoaded2 = new ImageIcon(new ImageIcon("koropokkuru2.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
 
         imgPlateau = img;
 
@@ -63,6 +76,9 @@ public class PlateauGraphic extends JPanel {
             for (Sprite s:listeSprite){
                 g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/1.2), hauteurCase*s.getY()+(int)(bordureY/1.7), null);
             }
+            for (Sprite s:listeCasePossible){
+                System.out.println(s);
+            }
         System.out.println(listeSprite.size());
 
 
@@ -79,12 +95,12 @@ public class PlateauGraphic extends JPanel {
 
                         switch(piece){
                                 //* J1
-                            case 1: imagePiece = imgKodamaLoaded; break;
-                            case 2: imagePiece = imgKodamaLoaded; break;
-                            case 3: imagePiece = imgOniLoaded; break;
-                            case 4: imagePiece = imgOniLoaded; break;
-                            case 5: imagePiece = imgKirinLoaded; break;
-                            case 6: imagePiece = imgKoropokkuruLoaded; break;
+                            case 1: imagePiece = imgKodamaLoaded2; break;
+                            case 2: imagePiece = imgKodamaLoaded2; break;
+                            case 3: imagePiece = imgOniLoaded2; break;
+                            case 4: imagePiece = imgOniLoaded2; break;
+                            case 5: imagePiece = imgKirinLoaded2; break;
+                            case 6: imagePiece = imgKoropokkuruLoaded2; break;
                                 //* J2
                             case -1: imagePiece = imgKodamaLoaded; break;
                             case -2: imagePiece = imgKodamaLoaded; break;
@@ -103,7 +119,14 @@ public class PlateauGraphic extends JPanel {
             }
     }
     public void afficheCasePossible(int[][] tab){
-
+        listeCasePossible.clear();
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[i].length; j++){
+                if (tab[i][j] == 1){
+                    listeCasePossible.add(new Sprite(i,j,null));
+                }
+            }
+        }
     }
 
 
