@@ -78,6 +78,7 @@ public class Plateau {
     private int joueur;
     private int[][] tab;
     private ArrayList<Integer> cimetiere;
+    private ArrayList<Integer> cimetiere2;
 
 
     //1 == pion
@@ -128,8 +129,12 @@ public class Plateau {
     }
 
 
-    public void mangePiece(int nbEstMange){
-        cimetiere.add(nbEstMange);
+    public void mangePiece(int nbEstMange)
+    {
+        if(joueur==0)
+            cimetiere.add(nbEstMange);
+        else
+            cimetiere2.add(nbEstMange);
     }
 
     public boolean promotionBoolean(int piece, int coorY){
