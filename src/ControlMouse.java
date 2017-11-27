@@ -45,15 +45,15 @@ public class ControlMouse implements MouseListener {
            plateau.setPieceEnCours(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
            plateau.setPieceEnCoursX(tabCoor[0]);
            plateau.setPieceEnCoursY(tabCoor[1]);
-           System.out.println("Tu peux joeur cette piece");
+           plateauGraph.afficheCasePossible(plateau.getMovePossible(tabCoor));
+           plateauGraph.repaint();
        }
 
         if((plateau.getTab()[tabCoor[0]][tabCoor[1]]>=0 && plateau.getJoueur() == 0)) {
            if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
-                   System.out.println("Tu as bouger ta piece la");
-                   plateau.setJoueur(1);
                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
+                   plateau.setJoueur(1);
                    plateau.setPieceEnCours(0);
                    plateau.setMovesPossibleTour(new int[5][6]);
                    plateau.setPieceEnCours(0);
@@ -62,9 +62,8 @@ public class ControlMouse implements MouseListener {
                    plateauGraph.tableauToSprite(plateau.getTab());
                    fenetre.repaint();
                } else if (plateau.getTab()[tabCoor[0]][tabCoor[1]] > 0) {
-                   System.out.println("Tu viens de manger cette piece");
-                   plateau.setJoueur(1);
                    plateau.placePieceDeCimetiere(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
+                   plateau.setJoueur(1);
                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                    plateau.setMovesPossibleTour(new int[5][6]);
                    plateau.setPieceEnCours(0);
@@ -80,7 +79,6 @@ public class ControlMouse implements MouseListener {
         if((plateau.getTab()[tabCoor[0]][tabCoor[1]]<=0 && plateau.getJoueur() == 1 && plateau.getMovesPossibleTour()[0][0] > -1)) {
             if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                 if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
-                    System.out.println("Tu as bouger ta piece la");
                     plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                     if(plateau.promotionBoolean(plateau.getPieceEnCours(), tabCoor[1])){
                        /* if(fenetre.promotionMessage()){
@@ -95,7 +93,6 @@ public class ControlMouse implements MouseListener {
                     plateauGraph.tableauToSprite(plateau.getTab());
                     fenetre.repaint();
                 } else if (plateau.getTab()[tabCoor[0]][tabCoor[1]] < 0) {
-                    System.out.println("Tu viens de manger cette piece");
                     plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                     plateau.setJoueur(0);
                     plateau.placePieceDeCimetiere(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
@@ -108,7 +105,6 @@ public class ControlMouse implements MouseListener {
                 }
             }
         }
-        System.out.println("clicked");
     }
 
     @Override
