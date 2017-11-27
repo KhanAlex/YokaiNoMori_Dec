@@ -33,6 +33,7 @@ public class PlateauGraphic extends JPanel {
 
     private List<Sprite> listeSprite;
     private List<Sprite> listeCasePossible;
+    private Sprite caseEchec;
 
     private boolean debutPartie;
 
@@ -66,6 +67,7 @@ public class PlateauGraphic extends JPanel {
 
         imgPlateau = img;
 
+        caseEchec=null;
 
     }
 
@@ -84,6 +86,10 @@ public class PlateauGraphic extends JPanel {
             for (Sprite s:listeCasePossible){
                 g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/2), hauteurCase*s.getY()+(int)(bordureY/2.1), null);
 
+            }
+            if(caseEchec!=null) {
+                g2.drawImage(caseEchec.getImage(), largeurCase * caseEchec.getX() + (int) (bordureX / 2), hauteurCase * caseEchec.getY() + (int) (bordureY / 2.1), null);
+                System.out.println("azaezaezaezaeza");
             }
             listeCasePossible.clear();
         System.out.println(listeSprite.size());
@@ -134,6 +140,15 @@ public class PlateauGraphic extends JPanel {
                 }
             }
         }
+    }
+
+    public void afficheCaseEchec(int[] numCase){
+        caseEchec = null;
+        caseEchec=new Sprite(numCase[0],numCase[1],imgBordure2.getImage());
+    }
+
+    public void setNullCaseEchec(){
+        caseEchec=null;
     }
 
 

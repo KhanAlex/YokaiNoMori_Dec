@@ -132,7 +132,7 @@ public class Plateau {
         int yRoi = -1;
         System.out.println(joueur);
 
-        if(tour%2==0){
+        if(joueur==0){
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y] == 6) {
@@ -151,12 +151,13 @@ public class Plateau {
                         cassePossibleAssayant = getMovePossible(new int[] {x,y});
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
                             System.out.println("echec1");
+                            return true;
                         }
                     }
                 }
             }
         }
-        if(tour%2==1){
+        if(joueur==1){
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y]== -6) {
@@ -173,12 +174,17 @@ public class Plateau {
                         cassePossibleAssayant = getMovePossible(new int[] {x,y});
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
                             System.out.println("echec2");
+                            return true;
                         }
                     }
                 }
             }
         }
         return false;
+    }
+
+    public boolean estEchecEtMath(){
+        return true;
     }
 
 
@@ -359,6 +365,62 @@ public class Plateau {
         cimetiereJoueur1.remove(nbPiece);
         tour++;
     }
+
+    public int[] getRoi(){
+        int[][] casePossibleRoi = new int[5][6];
+        int[][] cassePossibleAssayant;
+        int xRoi = -1;
+        int yRoi = -1;
+
+        if(joueur==0){
+            for(int x=0;x<5;x++){
+                for(int y=0;y<6;y++){
+                    if (tab[x][y] == 6) {
+                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        xRoi = x;
+                        yRoi = y;
+
+
+                    }
+                }
+            }
+
+            for(int x=0;x<5;x++){
+                for(int y=0;y<6;y++){
+                    if(casePossibleRoi[x][y]==1 && tab[x][y] < 0){
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        if(cassePossibleAssayant[xRoi][yRoi]==1){
+                            return new int[]{xRoi,yRoi};
+                        }
+                    }
+                }
+            }
+        }
+        if(joueur==1){
+            for(int x=0;x<5;x++){
+                for(int y=0;y<6;y++){
+                    if (tab[x][y]== -6) {
+                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        xRoi = x;
+                        yRoi = y;
+                    }
+                }
+            }
+
+            for(int x=0;x<5;x++){
+                for(int y=0;y<6;y++){
+                    if(casePossibleRoi[x][y]==1 && tab[x][y] > 0){
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        if(cassePossibleAssayant[xRoi][yRoi]==1){
+                            return new int[]{xRoi,yRoi};
+                        }
+                    }
+                }
+            }
+        }
+        return new int[]{-1,-1};
+    }
+
 
     public int[][] getTab() {
         return tab;

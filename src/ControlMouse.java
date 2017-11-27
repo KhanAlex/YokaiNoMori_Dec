@@ -31,6 +31,7 @@ public class ControlMouse implements MouseListener {
         hauteurCase = plateauGraph.getHauteurCase();
 
         plateauGraph.tableauToSprite(plateau.getTab());
+
         plateauGraph.repaint();
     }
 
@@ -53,59 +54,93 @@ public class ControlMouse implements MouseListener {
            if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
-                   plateau.setJoueur(1);
                    plateau.setPieceEnCours(0);
                    plateau.setMovesPossibleTour(new int[5][6]);
                    plateau.setPieceEnCours(0);
                    plateau.setPieceEnCoursX(0);
                    plateau.setPieceEnCoursY(0);
                    plateauGraph.tableauToSprite(plateau.getTab());
-                   fenetre.repaint();
+                   boolean test = plateau.estEchec();
+                   System.out.println(test);
+                   if(test)
+                       plateauGraph.afficheCaseEchec(plateau.getRoi());
+                   else
+                       plateauGraph.setNullCaseEchec();
+                   plateauGraph.repaint();
+                   plateau.setJoueur(1);
                } else if (plateau.getTab()[tabCoor[0]][tabCoor[1]] > 0) {
                    plateau.placePieceDeCimetiere(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
-                   plateau.setJoueur(1);
                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                    plateau.setMovesPossibleTour(new int[5][6]);
                    plateau.setPieceEnCours(0);
                    plateau.setPieceEnCoursX(0);
                    plateau.setPieceEnCoursY(0);
                    plateauGraph.tableauToSprite(plateau.getTab());
-                   fenetre.repaint();
+                   boolean test = plateau.estEchec();
+                   System.out.println(test);
+                   if(test) {
+                       plateauGraph.afficheCaseEchec(plateau.getRoi());
+                   }
+                   else
+                       plateauGraph.setNullCaseEchec();
+                   plateauGraph.repaint();
+                   plateau.setJoueur(1);
                }
            }
         }
 
 
-        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]<=0 && plateau.getJoueur() == 1 && plateau.getMovesPossibleTour()[0][0] > -1)) {
+        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]<=0 && plateau.getJoueur() == 1)) {
             if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                 if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
+                    System.out.println("test1");
+
                     plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                     if(plateau.promotionBoolean(plateau.getPieceEnCours(), tabCoor[1])){
                        /* if(fenetre.promotionMessage()){
                             promotion
                             */
                     }
-                    plateau.setJoueur(0);
                     plateau.setPieceEnCours(0);
                     plateau.setMovesPossibleTour(new int[5][6]);
                     plateau.setPieceEnCoursX(0);
                     plateau.setPieceEnCoursY(0);
                     plateauGraph.tableauToSprite(plateau.getTab());
-                    fenetre.repaint();
-                } else if (plateau.getTab()[tabCoor[0]][tabCoor[1]] < 0) {
-                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
+                    boolean test = plateau.estEchec();
+                    System.out.println(test);
+                    if(test)
+                        plateauGraph.afficheCaseEchec(plateau.getRoi());
+                    else
+                        plateauGraph.setNullCaseEchec();
+                    plateauGraph.repaint();
                     plateau.setJoueur(0);
+                } else if (plateau.getTab()[tabCoor[0]][tabCoor[1]] < 0) {
+                    System.out.println("test2");
+
+                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
                     plateau.placePieceDeCimetiere(plateau.getTab()[tabCoor[0]][tabCoor[1]]);
                     plateau.setMovesPossibleTour(new int[5][6]);
                     plateau.setPieceEnCours(0);
                     plateau.setPieceEnCoursX(0);
                     plateau.setPieceEnCoursY(0);
                     plateauGraph.tableauToSprite(plateau.getTab());
-                    fenetre.repaint();
+                    boolean test = plateau.estEchec();
+                    System.out.println(test);
+                    if(test) {
+                        System.out.println("x: " + plateau.getRoi()[0] + " y:" + plateau.getRoi()[1]);
+                        plateauGraph.afficheCaseEchec(plateau.getRoi());
+                    }
+                    else
+                        plateauGraph.setNullCaseEchec();
+                    plateauGraph.repaint();
+                    plateau.setJoueur(0);
                 }
+
             }
         }
-    }
+
+
+     }
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
