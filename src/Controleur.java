@@ -6,7 +6,7 @@ public class Controleur {
     public Controleur(Plateau p) {
         Fenetre f = new Fenetre(p);
         new ControlMouse(p,f);
-        new ControlMenu(p,f);
+        new ContreolMenu(p,f);
         new CimetiereController(p,f);
         new CimetiereController(p,f, 2);//*f
         f.setVisible(true);

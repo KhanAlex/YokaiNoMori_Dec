@@ -31,7 +31,7 @@ public class ControlMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Quitter")){
-            System.out.println("Fin du game !");//6
+            System.out.println("Fin du game !");//6e
             exit(0);
         }
     }

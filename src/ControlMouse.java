@@ -62,7 +62,7 @@ public class ControlMouse implements MouseListener {
                 a = 1;
             else
                 a = 0;
-            plateauGraph.afficheQuiJoue(a); //*f
+            plateauGraph.afficheQuiJoue(a); //*f4
 
             cimetiere2.actualiserCimetiere(test);
             plateauGraph.metEnValeurPiece(tabCoor);

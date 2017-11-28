@@ -199,7 +199,7 @@ public class PlateauGraphic extends JPanel {
             case 1: imagePiece = imgSuperKodamaLoaded; break;
             case 3: imagePiece = imgSuperOniLoaded; break;
 
-        }//*jkdd
+        }//*jkdde
         int reponse = popUp("Promotion", "Voulez vous faire évoluer la pièce ?", imagePiece, 1);
         if (reponse != 0)
             return false;

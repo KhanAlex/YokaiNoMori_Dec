@@ -153,7 +153,7 @@ public ImageIcon resizeWindow(ImageIcon imageIcon, int width, int height){
     //* Méthodes pour initialiser les controleurs
     public void  setControlMenu(ControlMenu cm){
         //* initialiser le controlMenu
-        this.quitItem.addActionListener(cm);//*
+        this.quitItem.addActionListener(cm);//*e
     }
     public void setCimetiereController(CimetiereController cc){
         cim1.addMouseListener(cc);
