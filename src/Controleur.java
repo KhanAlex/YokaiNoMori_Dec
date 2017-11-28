@@ -8,7 +8,7 @@ public class Controleur {
         new ControlMouse(p,f);
         new ControlMenu(p,f);
         new CimetiereController(p,f);
-        new CimetiereController(p,f, 2);
+        new CimetiereController(p,f, 2);//*f
         f.setVisible(true);
     }
 }

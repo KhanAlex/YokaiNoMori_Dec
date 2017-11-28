@@ -39,7 +39,7 @@ public class CimetiereController implements MouseListener{
         X = (mouseEvent.getX()-25)/100;
         Y = (mouseEvent.getY()+5)/100;
         indice = (X + (5*Y));
-//* met en valeur la piece cliqué
+//* met en valeur la piece cliqué f
         cimetiere.metEnValeur(X,Y,indice);
         cimetiere.repaint();
 

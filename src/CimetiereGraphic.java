@@ -113,7 +113,7 @@ public class CimetiereGraphic extends JPanel {
             listePiece.add(newSprite);
             x++;
         }
-    }
+    }//*f
     public void metEnValeur(int x, int y, int indiceListe){
         if (indiceListe >= listePiece.size()){
             System.out.println("out ouf bound");
