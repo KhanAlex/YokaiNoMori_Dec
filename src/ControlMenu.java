@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.System.exit;
+import static java.lang.System.setOut;
+
 /**
  * Created by bcontrer on 04/10/17.
  */
@@ -27,19 +30,9 @@ public class ControlMenu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Changer la taille")){
-            if (this.fenetre.isPetiteFenetre()){
-                this.fenetre.setSize(TAILLE_X_GRANDE,TAILLE_Y_GRANDE);
-                this.fenetre.setxFenetre(TAILLE_X_GRANDE);
-                this.fenetre.setyFenetre(TAILLE_Y_GRANDE);
-                this.fenetre.setPetiteFenetre(false);
-            }else{
-                this.fenetre.setSize(TAILLE_X_PETIT,TAILLE_Y_PETIT);
-                this.fenetre.setxFenetre(TAILLE_X_PETIT);
-                this.fenetre.setyFenetre(TAILLE_Y_PETIT);
-                this.fenetre.setPetiteFenetre(true);
-
-            }
+        if (e.getActionCommand().equals("Quitter")){
+            System.out.println("Fin du game !");
+            exit(0);
         }
     }
 }

@@ -7,6 +7,8 @@ public class Controleur {
         Fenetre f = new Fenetre(p);
         new ControlMouse(p,f);
         new ControlMenu(p,f);
+        new CimetiereController(p,f);
+        new CimetiereController(p,f, 2);
         f.setVisible(true);
     }
 }
