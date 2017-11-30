@@ -10,6 +10,26 @@ public class Plateau {
     private int tour;
     private int[][] movesPossibleTour;
 
+    public int getGagnant() {
+        return gagnant;
+    }
+
+    public void setGagnant(int gagnant) {
+        this.gagnant = gagnant;
+    }
+
+    private int gagnant;
+
+    public int getPieceCimetiere() {
+        return pieceCimetiere;
+    }
+
+    public void setPieceCimetiere(int pieceCimetiere) {
+        this.pieceCimetiere = pieceCimetiere;
+    }
+
+    private int pieceCimetiere;
+
     public int getPieceEnCours() {
         return pieceEnCours;
     }
@@ -78,6 +98,23 @@ public class Plateau {
     private int joueur;
     private int[][] tab;
     private ArrayList<Integer> cimetiereJoueur1;
+
+    public ArrayList<Integer> getCimetiereJoueur1() {
+        return cimetiereJoueur1;
+    }
+
+    public void setCimetiereJoueur1(ArrayList<Integer> cimetiereJoueur1) {
+        this.cimetiereJoueur1 = cimetiereJoueur1;
+    }
+
+    public ArrayList<Integer> getCimetiereJoueur2() {
+        return cimetiereJoueur2;
+    }
+
+    public void setCimetiereJoueur2(ArrayList<Integer> cimetiereJoueur2) {
+        this.cimetiereJoueur2 = cimetiereJoueur2;
+    }
+
     private ArrayList<Integer> cimetiereJoueur2;
 
 
@@ -112,11 +149,23 @@ public class Plateau {
 
         joueur = 0;
 
+        pieceCimetiere = 0;
+
+        gagnant = -1;
+
     }
 
     public void bougerPiece(int[] numPiece, int[] numCase){
         if( tab[numCase[0]][numCase[1]] != 0){
             mangePiece(tab[numCase[0]][numCase[1]]);
+            switch(tab[numCase[0]][numCase[1]]){
+                case 6:
+                    setGagnant(0);
+                    break;
+                case -6:
+                    setGagnant(1);
+                    break;
+            }
         }
         tab[numCase[0]][numCase[1]] = tab[numPiece[0]][numPiece[1]];
         tab[numPiece[0]][numPiece[1]]=0;
@@ -130,13 +179,12 @@ public class Plateau {
         int[][] cassePossibleAssayant;
         int xRoi = -1;
         int yRoi = -1;
-        System.out.println(joueur);
 
         if(joueur==0){
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y] == 6) {
-                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        casePossibleRoi= getMovePossible(new int[]{x,y},tab);
                         xRoi = x;
                         yRoi = y;
                         System.out.println(x+" "+y);
@@ -148,7 +196,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if(casePossibleRoi[x][y]==1 && tab[x][y] < 0){
-                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y},tab);
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
                             System.out.println("echec1");
                             return true;
@@ -161,7 +209,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y]== -6) {
-                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        casePossibleRoi= getMovePossible(new int[]{x,y},tab);
                         xRoi = x;
                         yRoi = y;
                     }
@@ -171,21 +219,18 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if(casePossibleRoi[x][y]==1 && tab[x][y] > 0){
-                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y},tab);
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
-                            System.out.println("echec2");
                             return true;
                         }
                     }
                 }
             }
         }
+
         return false;
     }
 
-    public boolean estEchecEtMath(){
-        return true;
-    }
 
 
     public void mangePiece(int nbEstMange)
@@ -257,18 +302,18 @@ public class Plateau {
             return possitionPossible;
         }
         if(numPiece==3){
-            possitionPossible[0][2]=1;
-            possitionPossible[1][2]=1;
-            possitionPossible[2][2]=1;
             possitionPossible[0][0]=1;
             possitionPossible[0][2]=1;
+            possitionPossible[2][0]=1;
+            possitionPossible[2][2]=1;
+            possitionPossible[1][2]=1;
             return possitionPossible;
         }
         if(numPiece==-3){
             possitionPossible[0][0]=1;
             possitionPossible[1][0]=1;
             possitionPossible[2][0]=1;
-            possitionPossible[2][0]=1;
+            possitionPossible[0][2]=1;
             possitionPossible[2][2]=1;
             return possitionPossible;
         }
@@ -287,25 +332,25 @@ public class Plateau {
         return possitionPossible;
     }
 
-    public int[][] getMovePossible(int[] numPiece){
+    public int[][] getMovePossible(int[] numPiece, int tabTemp[][]){
         int[][] mouvementPossible;
         int[][] possitionPossible=new int[5][6];
 
-        mouvementPossible=getMovePiece( tab[ numPiece[0] ][ numPiece[1] ] );
+        mouvementPossible=getMovePiece( tabTemp[ numPiece[0] ][ numPiece[1] ] );
 
         for (int x=0;x<3;x++){
             for (int y=0;y<3;y++){
                 if(mouvementPossible[x][y]==1){
-                    if( tab[ numPiece[0] ][ numPiece[1] ] > 0){
+                    if( tabTemp[ numPiece[0] ][ numPiece[1] ] > 0){
                         if(numPiece[0]+x-1>=0 && numPiece[0]+x-1<5 && numPiece[1]+y-1>=0 && numPiece[1]+y-1<6) {
-                            if (tab[numPiece[0] + x - 1][numPiece[1] + y - 1] <= 0) {
+                            if (tabTemp[numPiece[0] + x - 1][numPiece[1] + y - 1] <= 0) {
                                 possitionPossible[numPiece[0] + x - 1][numPiece[1] + y - 1] = 1;
                             }
                         }
                     }
                     else{
                         if(numPiece[0]+x-1>=0 && numPiece[0]+x-1<5 && numPiece[1]+y-1>=0 && numPiece[1]+y-1<6) {
-                            if (tab[numPiece[0] + x - 1][numPiece[1] + y - 1] >= 0) {
+                            if (tabTemp[numPiece[0] + x - 1][numPiece[1] + y - 1] >= 0) {
                                 possitionPossible[numPiece[0] + x - 1][numPiece[1] + y - 1] = 1;
                             }
                         }
@@ -376,7 +421,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y] == 6) {
-                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        casePossibleRoi= getMovePossible(new int[]{x,y},tab);
                         xRoi = x;
                         yRoi = y;
 
@@ -388,7 +433,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if(casePossibleRoi[x][y]==1 && tab[x][y] < 0){
-                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y},tab);
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
                             return new int[]{xRoi,yRoi};
                         }
@@ -400,7 +445,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if (tab[x][y]== -6) {
-                        casePossibleRoi= getMovePossible(new int[]{x,y});
+                        casePossibleRoi= getMovePossible(new int[]{x,y},tab);
                         xRoi = x;
                         yRoi = y;
                     }
@@ -410,7 +455,7 @@ public class Plateau {
             for(int x=0;x<5;x++){
                 for(int y=0;y<6;y++){
                     if(casePossibleRoi[x][y]==1 && tab[x][y] > 0){
-                        cassePossibleAssayant = getMovePossible(new int[] {x,y});
+                        cassePossibleAssayant = getMovePossible(new int[] {x,y},tab);
                         if(cassePossibleAssayant[xRoi][yRoi]==1){
                             return new int[]{xRoi,yRoi};
                         }
@@ -422,7 +467,13 @@ public class Plateau {
     }
 
 
+
+
+
     public int[][] getTab() {
         return tab;
     }
+
+
 }
+

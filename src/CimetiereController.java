@@ -20,16 +20,6 @@ public class CimetiereController implements MouseListener{
         X = 0;
         Y = 0;
         indice = 0;
-        cimetiere = fenetre.getCim1();
-
-    }
-    public CimetiereController(Plateau plateau, Fenetre fenetre, int u) {
-        this.plateau = plateau;
-        this.fenetre = fenetre;
-        fenetre.setCimetiereController2(this);
-        X = 0;
-        Y = 0;
-        indice = 0;
         cimetiere = fenetre.getCim2();
 
     }
@@ -39,10 +29,10 @@ public class CimetiereController implements MouseListener{
         X = (mouseEvent.getX()-25)/100;
         Y = (mouseEvent.getY()+5)/100;
         indice = (X + (5*Y));
-//* met en valeur la piece cliqué fe
+        System.out.println("indice" + indice);
+        plateau.setPieceCimetiere(indice);
         cimetiere.metEnValeur(X,Y,indice);
         cimetiere.repaint();
-
 
     }
 
