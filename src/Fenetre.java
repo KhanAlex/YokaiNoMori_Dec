@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 /**
  * Created by bcontrer on 04/10/17.
@@ -17,84 +16,6 @@ public class Fenetre extends JFrame {
     private JMenuItem quitItem, resizeItem, newgameItem;
     //* Autres
     private Plateau plateau;
-
-    public JPanel getFenetre() {
-        return fenetre;
-    }
-
-    public void setFenetre(JPanel fenetre) {
-        this.fenetre = fenetre;
-    }
-
-    public JPanel getContainer1() {
-        return container1;
-    }
-
-    public void setContainer1(JPanel container1) {
-        this.container1 = container1;
-    }
-
-    public JPanel getContainer2() {
-        return container2;
-    }
-
-    public void setContainer2(JPanel container2) {
-        this.container2 = container2;
-    }
-
-
-    public void setMenuBar(JMenuBar menuBar) {
-        this.menuBar = menuBar;
-    }
-
-    public JMenu getMenuPrincipal() {
-        return menuPrincipal;
-    }
-
-    public void setMenuPrincipal(JMenu menuPrincipal) {
-        this.menuPrincipal = menuPrincipal;
-    }
-
-    public JMenu getMenuAutre() {
-        return menuAutre;
-    }
-
-    public void setMenuAutre(JMenu menuAutre) {
-        this.menuAutre = menuAutre;
-    }
-
-    public JMenuItem getQuitItem() {
-        return quitItem;
-    }
-
-    public void setQuitItem(JMenuItem quitItem) {
-        this.quitItem = quitItem;
-    }
-
-    public JMenuItem getResizeItem() {
-        return resizeItem;
-    }
-
-    public void setResizeItem(JMenuItem resizeItem) {
-        this.resizeItem = resizeItem;
-    }
-
-    public JMenuItem getNewgameItem() {
-        return newgameItem;
-    }
-
-    public void setNewgameItem(JMenuItem newgameItem) {
-        this.newgameItem = newgameItem;
-    }
-
-    public Plateau getPlateau() {
-        return plateau;
-    }
-
-    public void setPlateau(Plateau plateau) {
-        this.plateau = plateau;
-    }
-
     private boolean petiteFenetre;
     private int xFenetre;
     private int yFenetre;
@@ -121,22 +42,12 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
+        setLocation(550,0);
+        cimetiere1.setLocation(0,50);
+        cimetiere2.setLocation(1100,500);
     }
 
-    public void newFenetre(){
-        creerFenetre();
-        initMenu();
-        addToWindow();
-        pack();
-        setTitle("Yokaï no mori");
-        cimetiere1.dispatchEvent(new WindowEvent(cimetiere1, WindowEvent.WINDOW_CLOSING));
-        cimetiere2.dispatchEvent(new WindowEvent(cimetiere2, WindowEvent.WINDOW_CLOSING));
-        initCimetiere();
-        initCimetiere2();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
-        setResizable(false);
-    }//* Méthodes pour créer la fenêtre
+    //* Méthodes pour créer la fenêtre
     public void creerFenetre() {
         //* Création de tout les composants graphiques de la fenetre ( sauf Menu )
 
@@ -201,9 +112,10 @@ public class Fenetre extends JFrame {
 
 
 
+
     }
     public void initCimetiere2(){
-        ImageIcon imgFond = resizeWindow(new ImageIcon("fond1.png"),550,520);
+        ImageIcon imgFond = resizeWindow(new ImageIcon("cimetiere.jpg"),550,520);
         ImageIcon imgNull =new ImageIcon( "fond3.png"); //* taille mini fenetre
 
         JLabel image = new JLabel(resizeWindow(imgNull, 550, 500));
@@ -241,12 +153,12 @@ public ImageIcon resizeWindow(ImageIcon imageIcon, int width, int height){
     //* Méthodes pour initialiser les controleurs
     public void  setControlMenu(ControlMenu cm){
         //* initialiser le controlMenu
-        this.resizeItem.addActionListener(cm);
-        this.newgameItem.addActionListener(cm);
-        this.quitItem.addActionListener(cm);
+        this.quitItem.addActionListener(cm);//*e
     }
     public void setCimetiereController(CimetiereController cc){
         cim1.addMouseListener(cc);
+    }
+    public void setCimetiereController2(CimetiereController cc){
         cim2.addMouseListener(cc);
     }
 
@@ -254,18 +166,8 @@ public ImageIcon resizeWindow(ImageIcon imageIcon, int width, int height){
         //* initialiser le ControlClick
         this.imagePlateau.addMouseListener(controlMouse);
     }
-
-    public void removeControlClick(ControlMouse controlMouse){
-        this.imagePlateau.removeMouseListener(controlMouse);
-        this.cim1.removeMouseListener(controlMouse);
-        this.cim2.removeMouseListener(controlMouse);
-    }
     public void update(){
         imagePlateau.repaint();
-    }
-
-    public void messageToUser(String message){
-        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
     //* ...
