@@ -12,11 +12,8 @@ public class CimetiereGraphic extends JPanel {
     private Image imgPlateau;
 
     private ImageIcon imgKodamaLoaded;
-    private ImageIcon imgKodamaLoaded2;
     private ImageIcon imgSuperKodamaLoaded;
-    private ImageIcon imgSuperKodamaLoaded2;
     private ImageIcon imgKirinLoaded;
-    private ImageIcon imgKirinLoaded2;
     private ImageIcon imgOniLoaded;
     private ImageIcon imgSuperOniLoaded;
     private ImageIcon imgOniLoaded2;
@@ -28,6 +25,8 @@ public class CimetiereGraphic extends JPanel {
     private ImageIcon imgBordure3;
     private ImageIcon imagePromotion;
     private ImageIcon imageVictoire;
+    private ImageIcon imgSelect;
+
 
 
     private final int LARGEUR_PIECE = 90;
@@ -49,6 +48,7 @@ public class CimetiereGraphic extends JPanel {
         imgKirinLoaded = new ImageIcon(new ImageIcon("kirin.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
         imgOniLoaded = new ImageIcon(new ImageIcon("oni.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
         imgKoropokkuruLoaded = new ImageIcon(new ImageIcon("koropokkuru.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
+        imgSelect = new ImageIcon(new ImageIcon("border.png").getImage().getScaledInstance(135, 135, Image.SCALE_DEFAULT));
 
 
 
@@ -74,7 +74,8 @@ public class CimetiereGraphic extends JPanel {
         }
         if (pieceSelec != null){
             g2.drawImage(pieceSelec.getImage(), pieceSelec.getX()*100+30,pieceSelec.getY()*100,null);
-            g2.drawRect(0, 0,(pieceSelec.getX()*100+30), (pieceSelec.getY()*100) );
+            g2.drawImage(imgSelect.getImage(), pieceSelec.getX()*100+13,(pieceSelec.getY()*100)-18,null);
+
             pieceSelec = null;
 
         }
@@ -112,7 +113,7 @@ public class CimetiereGraphic extends JPanel {
             listePiece.add(newSprite);
             x++;
         }
-    }
+    }//*fe
     public void metEnValeur(int x, int y, int indiceListe){
         if (indiceListe >= listePiece.size()){
             System.out.println("out ouf bound");
@@ -121,21 +122,7 @@ public class CimetiereGraphic extends JPanel {
             Image last = listePiece.get(indiceListe).getImage();
             ImageIcon img = new ImageIcon(new ImageIcon(last).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
             pieceSelec = new Sprite(x,y,img.getImage());
-            //icon.setImage(image);
 
-            int borderWidth = 1;
-            int spaceAroundIcon = 0;
-            Color borderColor = Color.BLUE;
-
-            //BufferedImage bi = new BufferedImage(icon.getIconWidth() + (2 * borderWidth + 2 * spaceAroundIcon),icon.getIconHeight() + (2 * borderWidth + 2 * spaceAroundIcon), BufferedImage.TYPE_INT_ARGB);
-
-            //g.setColor(borderColor);
-          //  g.drawImage(icon.getImage(), borderWidth + spaceAroundIcon, borderWidth + spaceAroundIcon, null);
-
-            //BasicStroke stroke = new BasicStroke(5); //5 pixels wide (thickness of the border)
-            //g.setStroke(stroke);
-
-            //g.drawRect(0, 0, bi.getWidth() - 1, bi.getHeight() - 1);
         }
     }
 
