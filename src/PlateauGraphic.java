@@ -26,12 +26,12 @@ public class PlateauGraphic extends JPanel {
     private ImageIcon imgBordure3;
     private ImageIcon imagePromotion;
     private ImageIcon imageVictoire;
+    private ImageIcon imageArrow;
+    private ImageIcon imageArrow2;
 
     private String path;
     private Plateau plateau;
     private Fenetre fenetre;
-    private Sprite caseEchec;
-
 
     private int bordureX;
     private int largeurCase;
@@ -42,6 +42,8 @@ public class PlateauGraphic extends JPanel {
 
     private List<Sprite> listeSprite;
     private List<Sprite> listeCasePossible;
+    private Sprite currentJoueur;
+    private Sprite currentPiece;
 
     private boolean debutPartie;
 
@@ -78,10 +80,14 @@ public class PlateauGraphic extends JPanel {
         imgBordure3 = new ImageIcon(new ImageIcon("bordure3.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
         imagePromotion = new ImageIcon(new ImageIcon("promo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         imageVictoire = new ImageIcon(new ImageIcon("victoire.jpg").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+        imageArrow = new ImageIcon(new ImageIcon("arrow.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        imageArrow2 = new ImageIcon(new ImageIcon("arrow2.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 
 
 
         imgPlateau = img;
+        currentJoueur = null;
+        currentPiece = null;
 
 
     }
@@ -105,7 +111,14 @@ public class PlateauGraphic extends JPanel {
             }
             listeCasePossible.clear();
         //*
-        System.out.println(listeSprite.size());
+        if (currentJoueur != null)
+            g2.drawImage(currentJoueur.getImage(), currentJoueur.getX(),currentJoueur.getY(), null);
+        if (currentPiece != null){
+            g2.drawImage(currentPiece.getImage(), largeurCase*currentPiece.getX()+(int)(bordureX-15), hauteurCase*currentPiece.getY()+(int)(bordureY/1.8), null);
+            currentPiece = null;
+        }
+
+
 
 
     }
@@ -186,24 +199,40 @@ public class PlateauGraphic extends JPanel {
             case 1: imagePiece = imgSuperKodamaLoaded; break;
             case 3: imagePiece = imgSuperOniLoaded; break;
 
-        }
+        }//*jkdde
         int reponse = popUp("Promotion", "Voulez vous faire évoluer la pièce ?", imagePiece, 1);
         if (reponse != 0)
             return false;
         return true;
     }
     public void showWinner(int numVainqueur){
-        popUp("Victoire", ("Le joueur"+String.valueOf(numVainqueur)+" à gagné ! "), imageVictoire, 0);
+        popUp("Victoire", ("Le joueur"+String.valueOf(numVainqueur)+" a gagné ! "), imageVictoire, 0);
+    }
+    public void afficheQuiJoue(int tour){
+        if (tour%2 == 0){
+            currentJoueur = new Sprite(85,20,imageArrow2.getImage());
+        }else{
+            currentJoueur = new Sprite(415,770,imageArrow.getImage());
+
+        }
+    }
+    public void metEnValeurPiece(int[] tab){
+        Sprite piece = chercheSprite(tab[0],tab[1]);
+        if (piece != null){
+            Image last = piece.getImage();
+            ImageIcon img = new ImageIcon(new ImageIcon(last).getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT));
+            currentPiece = new Sprite(piece.getX(),piece.getY(), img.getImage());
+           // listeSprite.remove(piece);
+        }
+    }
+    private Sprite chercheSprite(int x, int y){
+        for (Sprite s:listeSprite){
+            if (s.getX() == x && s.getY() == y)
+                return s;
+        }
+        return null;
     }
 
-    public void afficheCaseEchec(int[] numCase){
-        caseEchec = null;
-        caseEchec=new Sprite(numCase[0],numCase[1],imgBordure2.getImage());
-    }
-
-    public void setNullCaseEchec(){
-        caseEchec=null;
-    }
 
 
     public int getBordureX() {
