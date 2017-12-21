@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 
 /**
@@ -60,6 +61,35 @@ public class Fenetre extends JFrame {
         JLabel image = new JLabel(resizeWindow(imgNull, xFenetre, yFenetre));
        this.imagePlateau.add(image);
 
+    }
+    private int popUp(String titre, String message, ImageIcon image, int type){
+        JOptionPane popUp = new JOptionPane();
+        popUp.setFocusable(true);
+        int option = -10;
+        if (type == 0){
+            popUp.showMessageDialog(null, message, titre, JOptionPane.INFORMATION_MESSAGE, image);
+        }else if(type == 1){
+            option = popUp.showConfirmDialog(null, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image);
+        }
+        return option;
+    }
+    public boolean askPromotion(int piece){
+        ImageIcon imagePiece = null;
+        if (piece < 0)
+            piece*=-1;
+        switch(piece){
+            //* J1
+            case 1: imagePiece = ((PlateauGraphic)getImagePlateau()).getImgSuperKodamaLoaded(); break;
+            case 3: imagePiece = ((PlateauGraphic)getImagePlateau()).getImgSuperOniLoaded(); break;
+
+        }//*jkdde
+        int reponse = popUp("Promotion", "Voulez vous faire évoluer la pièce ?", imagePiece, 1);
+        if (reponse != 0)
+            return false;
+        return true;
+    }
+    public void showWinner(int numVainqueur){
+        popUp("Victoire", ("Le joueur"+String.valueOf(numVainqueur)+" a gagné ! "), ((PlateauGraphic)getImagePlateau()).getImageVictoire(), 0);
     }
 
     public void initMenu() {
@@ -161,6 +191,7 @@ public ImageIcon resizeWindow(ImageIcon imageIcon, int width, int height){
     public void  setControlMenu(ControlMenu cm){
         //* initialiser le controlMenu
         this.quitItem.addActionListener(cm);//*e
+        newgameItem.addActionListener(cm);
     }
     public void setCimetiereController(CimetiereController cc){
         cim1.addMouseListener(cc);
@@ -172,6 +203,11 @@ public ImageIcon resizeWindow(ImageIcon imageIcon, int width, int height){
     public void setControlClick(ControlMouse controlMouse) {
         //* initialiser le ControlClick
         this.imagePlateau.addMouseListener(controlMouse);
+    }
+    public void newGame(ControlMouse last, CimetiereController cim1, CimetiereController cim2){
+        imagePlateau.removeMouseListener(last);
+        this.cim1.removeMouseListener(cim1);
+        this.cim2.removeMouseListener(cim2);
     }
     public void update(){
         imagePlateau.repaint();

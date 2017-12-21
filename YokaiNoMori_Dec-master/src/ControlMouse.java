@@ -21,6 +21,8 @@ public class ControlMouse implements MouseListener {
     private CimetiereGraphic cimetiere1;
     private CimetiereGraphic cimetiere2;
 
+    public boolean cimetiereJoue;
+
 
     public ControlMouse(Plateau p, Fenetre f){
         this.plateau = p;
@@ -39,6 +41,7 @@ public class ControlMouse implements MouseListener {
         plateauGraph.afficheQuiJoue(plateau.getJoueur());
 
         plateauGraph.repaint();
+        cimetiereJoue=false;
     }
 
 
@@ -58,9 +61,10 @@ public class ControlMouse implements MouseListener {
            plateauGraph.metEnValeurPiece(tabCoor);
            plateauGraph.afficheCasePossible(plateau.getMovePossible(tabCoor,plateau.getTab()));
            plateauGraph.repaint();
+           plateau.cimetiereJoue=false;
        }
 
-        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]>=0 && plateau.getJoueur() == 0)) {
+        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]>=0 && plateau.getJoueur() == 0 && !plateau.cimetiereJoue)) {
            if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
                    plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});
@@ -100,7 +104,7 @@ public class ControlMouse implements MouseListener {
         }
 
 
-        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]<=0 && plateau.getJoueur() == 1)) {
+        if((plateau.getTab()[tabCoor[0]][tabCoor[1]]<=0 && plateau.getJoueur() == 1 && !plateau.cimetiereJoue)) {
             if(plateau.getMovesPossibleTour()[tabCoor[0]][tabCoor[1]]==1) {
                 if (plateau.getTab()[tabCoor[0]][tabCoor[1]] == 0) {
                     plateau.bougerPiece(new int[] {plateau.getPieceEnCoursX(),plateau.getPieceEnCoursY()}, new int[]{tabCoor[0],tabCoor[1]});

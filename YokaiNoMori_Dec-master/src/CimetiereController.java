@@ -46,13 +46,17 @@ public class CimetiereController implements MouseListener{
             System.out.println("indice" + indice);
             plateau.setPieceCimetiere(indice);
             if (plateau.getJoueur()%2 == 0){
-
-                ((PlateauGraphic)fenetre.getImagePlateau()).afficheCasePossible(plateau.placePieceDeCimetiere(plateau.getCimetiereJoueur1().get(indice)));
+                if (indice < plateau.getCimetiereJoueur1().size()) {
+                    ((PlateauGraphic) fenetre.getImagePlateau()).afficheCasePossible(plateau.placePieceDeCimetiere(plateau.getCimetiereJoueur1().get(indice)));
+                }
             }else{
-                ((PlateauGraphic)fenetre.getImagePlateau()).afficheCasePossible(plateau.placePieceDeCimetiere(plateau.getCimetiereJoueur2().get(indice)));
-
+                if (indice < plateau.getCimetiereJoueur2().size()) {
+                    ((PlateauGraphic) fenetre.getImagePlateau()).afficheCasePossible(plateau.placePieceDeCimetiere(plateau.getCimetiereJoueur2().get(indice)));
+                }
 
             }
+
+            plateau.cimetiereJoue=true;
             fenetre.getImagePlateau().repaint();
 
             cimetiere.metEnValeur(X,Y,indice);

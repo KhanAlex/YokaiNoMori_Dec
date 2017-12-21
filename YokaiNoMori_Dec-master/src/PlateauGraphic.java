@@ -3,6 +3,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class PlateauGraphic extends JPanel {
 
 
@@ -75,9 +77,9 @@ public class PlateauGraphic extends JPanel {
         imgOniLoaded2 = new ImageIcon(new ImageIcon("oni2.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
         imgKoropokkuruLoaded = new ImageIcon(new ImageIcon("koropokkuru.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
         imgKoropokkuruLoaded2 = new ImageIcon(new ImageIcon("koropokkuru2.png").getImage().getScaledInstance(LARGEUR_PIECE, HAUTEUR_PIECE, Image.SCALE_DEFAULT));
-        imgBordure = new ImageIcon(new ImageIcon("bordure.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
-        imgBordure2 = new ImageIcon(new ImageIcon("bordure2.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
-        imgBordure3 = new ImageIcon(new ImageIcon("bordure3.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
+        imgBordure = new ImageIcon(new ImageIcon("bord1.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
+        imgBordure2 = new ImageIcon(new ImageIcon("bord3.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
+        imgBordure3 = new ImageIcon(new ImageIcon("bord2.png").getImage().getScaledInstance(largeurCase, hauteurCase, Image.SCALE_DEFAULT));
         imagePromotion = new ImageIcon(new ImageIcon("promo.png").getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
         imageVictoire = new ImageIcon(new ImageIcon("victoire.jpg").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
         imageArrow = new ImageIcon(new ImageIcon("arrow.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
@@ -102,11 +104,11 @@ public class PlateauGraphic extends JPanel {
         g2.drawImage(imgPlateau, 0,0,null);
         //* Liste des pièces à afficher
             for (Sprite s:listeSprite){
-                g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/1.2), hauteurCase*s.getY()+(int)(bordureY/1.7), null);
+                g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/1.25), hauteurCase*s.getY()+(int)(bordureY/1.7), null);
             }
         //* Liste des déplacement possible
             for (Sprite s:listeCasePossible){
-                g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX/2.00), hauteurCase*s.getY()+(int)(bordureY/2), null);
+                g2.drawImage(s.getImage(), largeurCase*s.getX()+(int)(bordureX-20), hauteurCase*s.getY()+(int)(bordureY-90), null);
 
             }
             listeCasePossible.clear();
@@ -182,11 +184,13 @@ public class PlateauGraphic extends JPanel {
     }
     private int popUp(String titre, String message, ImageIcon image, int type){
         JOptionPane popUp = new JOptionPane();
+        popUp.setFocusable(true);
+  
         int option = -10;
         if (type == 0){
             popUp.showMessageDialog(null, message, titre, JOptionPane.INFORMATION_MESSAGE, image);
         }else if(type == 1){
-             option = popUp.showConfirmDialog(null, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image);
+            option = popUp.showConfirmDialog(null, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image);
         }
         return option;
     }
@@ -265,5 +269,17 @@ public class PlateauGraphic extends JPanel {
 
     public void setHauteurCase(int hauteurCase) {
         this.hauteurCase = hauteurCase;
+    }
+
+    public ImageIcon getImgSuperKodamaLoaded() {
+        return imgSuperKodamaLoaded;
+    }
+
+    public ImageIcon getImgSuperOniLoaded() {
+        return imgSuperOniLoaded;
+    }
+
+    public ImageIcon getImageVictoire() {
+        return imageVictoire;
     }
 }

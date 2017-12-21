@@ -10,112 +10,24 @@ public class Plateau {
     private int tour;
     private int[][] movesPossibleTour;
 
-    public int getGagnant() {
-        return gagnant;
-    }
-
-    public void setGagnant(int gagnant) {
-        this.gagnant = gagnant;
-    }
-
     private int gagnant;
-
-    public int getPieceCimetiere() {
-        return pieceCimetiere;
-    }
-
-    public void setPieceCimetiere(int pieceCimetiere) {
-        this.pieceCimetiere = pieceCimetiere;
-    }
 
     private int pieceCimetiere;
 
-    public int getPieceEnCours() {
-        return pieceEnCours;
-    }
-
-    public void setPieceEnCours(int pieceEnCours) {
-        this.pieceEnCours = pieceEnCours;
-    }
-
     private int pieceEnCours;
-
-    public int getPieceEnCoursX() {
-        return pieceEnCoursX;
-    }
-
-    public void setPieceEnCoursX(int pieceEnCoursX) {
-        this.pieceEnCoursX = pieceEnCoursX;
-    }
-
-    public int getPieceEnCoursY() {
-        return pieceEnCoursY;
-    }
-
-    public void setPieceEnCoursY(int pieceEnCoursY) {
-        this.pieceEnCoursY = pieceEnCoursY;
-    }
-
     private int pieceEnCoursX;
     private int pieceEnCoursY;
 
-    public int getTour() {
-        return tour;
-    }
-
-    public int[][] getMovesPossibleTour() {
-        return movesPossibleTour;
-    }
-
-    public void setMovesPossibleTour(int[][] movesPossibleTour) {
-        this.movesPossibleTour = movesPossibleTour;
-    }
-
-    public void setTour(int tour) {
-        this.tour = tour;
-    }
-
-    public int getJoueur() {
-        return joueur;
-    }
-
-    public void setJoueur(int joueur) {
-        this.joueur = joueur;
-    }
-
-    public void setTab(int[][] tab) {
-        this.tab = tab;
-    }
-
-    public ArrayList<Integer> getCimetiere() {
-        return cimetiereJoueur1;
-    }
-
-    public void setCimetiere(ArrayList<Integer> cimetiere) {
-        this.cimetiereJoueur1 = cimetiere;
-    }
 
     private int joueur;
     private int[][] tab;
     private ArrayList<Integer> cimetiereJoueur1;
-
-    public ArrayList<Integer> getCimetiereJoueur1() {
-        return cimetiereJoueur1;
-    }
-
-    public void setCimetiereJoueur1(ArrayList<Integer> cimetiereJoueur1) {
-        this.cimetiereJoueur1 = cimetiereJoueur1;
-    }
-
-    public ArrayList<Integer> getCimetiereJoueur2() {
-        return cimetiereJoueur2;
-    }
-
-    public void setCimetiereJoueur2(ArrayList<Integer> cimetiereJoueur2) {
-        this.cimetiereJoueur2 = cimetiereJoueur2;
-    }
-
     private ArrayList<Integer> cimetiereJoueur2;
+
+    public boolean cimetiereJoue;
+
+
+
 
 
     //1 == pion
@@ -152,6 +64,8 @@ public class Plateau {
         pieceCimetiere = -1;
 
         gagnant = -1;
+
+        cimetiereJoue=false;
 
     }
 
@@ -254,9 +168,15 @@ public class Plateau {
     public boolean promotionBoolean(int piece, int coorY){
         if (piece !=1 && piece !=-1 && piece !=3 && piece !=-3 )
             return false;
-        if(joueur == 1 && coorY < 4 || joueur == 0 && coorY >1 )
-            return false;
-        return true;
+        if(joueur==1){
+            if(pieceEnCoursY==3 && coorY==4 || pieceEnCoursY==4 && coorY==3)
+                return true;
+        }
+        if(joueur==0){
+            if(pieceEnCoursY==1 && coorY==2 || pieceEnCoursY==2 && coorY==1)
+                return true;
+        }
+        return false;
     }
 
     public void promotion(int[] numCase){
@@ -483,6 +403,51 @@ public class Plateau {
 
     public int[][] getTab() {
         return tab;
+    }
+    public int getGagnant() {
+        return gagnant;
+    }
+    public void setGagnant(int gagnant) {
+        this.gagnant = gagnant;
+    }
+    public int getPieceCimetiere() {
+        return pieceCimetiere;
+    }
+    public void setPieceCimetiere(int pieceCimetiere) {
+        this.pieceCimetiere = pieceCimetiere;
+    }
+    public void setPieceEnCours(int pieceEnCours) {
+        this.pieceEnCours = pieceEnCours;
+    }
+    public int getPieceEnCoursX() {
+        return pieceEnCoursX;
+    }
+    public void setPieceEnCoursX(int pieceEnCoursX) {
+        this.pieceEnCoursX = pieceEnCoursX;
+    }
+    public int getPieceEnCoursY() {
+        return pieceEnCoursY;
+    }
+    public void setPieceEnCoursY(int pieceEnCoursY) {
+        this.pieceEnCoursY = pieceEnCoursY;
+    }
+    public int[][] getMovesPossibleTour() {
+        return movesPossibleTour;
+    }
+    public void setMovesPossibleTour(int[][] movesPossibleTour) {
+        this.movesPossibleTour = movesPossibleTour;
+    }
+    public int getJoueur() {
+        return joueur;
+    }
+    public void setJoueur(int joueur) {
+        this.joueur = joueur;
+    }
+    public ArrayList<Integer> getCimetiereJoueur1() {
+        return cimetiereJoueur1;
+    }
+    public ArrayList<Integer> getCimetiereJoueur2() {
+        return cimetiereJoueur2;
     }
 
 

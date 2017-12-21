@@ -5,10 +5,10 @@ public class Controleur {
 
     public Controleur(Plateau p) {
         Fenetre f = new Fenetre(p);
-        new ControlMouse(p,f);
-        new ControlMenu(p,f);
-        new CimetiereController(p,f);
-        new CimetiereController(p,f, 2);//*f
+        ControlMouse cm = new ControlMouse(p,f);
+        CimetiereController cim1 = new CimetiereController(p,f);
+        CimetiereController cim2 = new CimetiereController(p,f, 2);//*f
+        new ControlMenu(p,f,cm, cim1,cim2);
         f.setVisible(true);
     }
 }
